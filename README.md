@@ -1,21 +1,54 @@
 # C-programming-pre-lab
 
-Pre-lab to get started on compiling and running C programs and valgrind
+Pre-lab to get started on compiling and running C programs and valgrind.
 
--   [Background](#background)
-    -   [Checking vs. Exploration](#checking-vs-exploration)
-    -   [Compiling and running a C program](#compiling-and-running-a-c-program)
-    -   [Using valgrind to find memory leaks](#using-valgrind-to-find-memory-leaks)
--   [Exercise](#exercise)
+<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-Background
-----------------------------------------
+- [Background](#background)
+	- [Checking vs. Exploration](#checking-vs-exploration)
+	- [Compiling and running a C program](#compiling-and-running-a-c-program)
+	- [Using valgrind to find memory leaks](#using-valgrind-to-find-memory-leaks)
+- [What to do](#what-to-do)
 
-This pre-lab is for the next several labs which comprise a number of 
-C programming exercises with an emphasis on arrays, pointers, memory management, and system calls. 
+<!-- /TOC -->
+
+## Background
+
+This pre-lab is for the next several labs which comprise a
+number of
+C programming exercises with an emphasis on arrays, pointers,
+memory management, and system calls.
 The Internet is chock full of C tutorials, etc.;
-some are listed on the
-[CSci3403 Resources Page](https://github.umn.edu/UMM-CSci3403-F15/Resources/wiki), but there are no doubt zillions of good resources out there we've never heard of.
+some are listed below, but there are no doubt zillions of good
+resources out there we've never heard of so feel free to share
+things you find helpful.
+
+There is a truly vast amount of information on C out there on the
+Internet; Wikipedia alone has a remarkable amount of info on C. There's
+no way we could have gone through it all or know the "best"
+resources. We'll share here things we found helpful at some
+point, and we
+would encourage everyone in the course to do the same.
+
+-   <http://en.wikipedia.org/wiki/Header_file>
+    -   Nice review of why C has header files, and how they're typically
+        used.
+-   <http://en.wikipedia.org/wiki/Boolean_datatype#C>
+    -   On the craziness that is booleans (or the lack thereof) in C.
+-   <http://en.wikipedia.org/wiki/Struct_(C_programming_language>)
+    -   A nice overview of C structs
+
+<http://www.cprogramming.com/tutorial.html#ctutorial> has a decent
+on-line C tutorial, complete with little self-tests along the way. Some
+particularly useful lessons in this context would be:
+-   <http://www.cprogramming.com/tutorial/c/lesson6.html>
+    -   Overview of pointers in C
+-   <http://www.cprogramming.com/tutorial/c/lesson8.html>
+    -   Overview of arrays in C
+-   <http://www.cprogramming.com/tutorial/c/lesson9.html>
+    -   Overview of strings in C
+-   <http://www.cprogramming.com/tutorial/c/lesson14.html>
+    -   Overview of command line arguments in C.
 
 ### Checking vs. Exploration
 
@@ -30,7 +63,7 @@ it's important to recognize that the stuff we're writing when we explore
 is often pretty crappy (because we don't know what we're doing yet). As
 a result one often does the exploring off to the side, with the
 intention of throwing it away. I bring all this up because I suspect
-there will be a fair amount of exploring that goes on during this 
+there will be a fair amount of exploring that goes on during this
 pre-lab and the following labs.
 Try to be intentional and honest about that. Step off to the side and
 try a little exploratory code to figure out if you've got an idea worked
@@ -40,9 +73,9 @@ your new knowledge back to the project at hand.
 ### Compiling and running a C program
 
 In the exercise below you'll need to edit, (re)compile, and run the C
-program `check_whitespace.c` that is provided in this repository. 
-Assuming you're in the project directory, you can compile this using the
-command
+program `check_whitespace.c` that is provided in this repository.
+Assuming you're in the project directory, you can compile
+this using the command
 
 ```bash
 gcc -g -Wall -o check_whitespace check_whitespace.c
@@ -54,8 +87,8 @@ people use on Linux boxes these days. The meaning of the flags:
 -   `-g` tells `gcc` to include debugging information in the generated
     executable. This is allows, for example, programs like `valgrind`
     (described below) to list line numbers where it thinks there are
-    problems. Without `-g` Valgrind (and other debugging tools) will 
-    be able to specify the name of functions where there are problems, 
+    problems. Without `-g` Valgrind (and other debugging tools) will
+    be able to specify the name of functions where there are problems,
     but not give you line numbers.
 -   `-Wall` (it's a capital 'W') is short for "Warnings all" and turns
     on *all* the warnings that `gcc` supports. This is a Very Good Idea
@@ -83,7 +116,7 @@ you can allocate memory that you never free up again when you're done
 with it. This will typically never lead to an error, but can cause a
 long-running process to consume more and more memory over time until its
 performance begins to degrade or it ultimately crashes the system. Since
-system processes (e.g. file servers, authentication servers, and web servers) 
+system processes (e.g. file servers, authentication servers, and web servers)
 often run for days, weeks, or months
 between restarts, a memory leak in such a program can be quite serious.
 As a simple example, consider the (silly) function:
@@ -122,7 +155,7 @@ valgrind ./my_prog
 
 will run the program as normal, and then print out a memory usage/leak
 report at the end. To get more detailed information, including what
-lines generate a leak, 
+lines generate a leak,
 
 * Make sure to compile your program with the `-g` flag, and
 * Add the `--leak-check=full` flag when running `valgrind`:
@@ -154,7 +187,7 @@ allocated.
 There are two types of memory leaks, one of which is frankly easier to
 sort out than the other.
 
-The easy ones are were function `f()` allocates _local_ memory (memory 
+The easy ones are where function `f()` allocates _local_ memory (memory
 no one but `f()` uses) and doesn't free it up before it exits. The
 solution to this is typically just to free up the memory before `f()`
 exits.
@@ -163,21 +196,20 @@ The trickier ones are where `f()` allocates memory that it _returns_
 to whoever called it, say a function `g()`. `f()` _can't_ free that
 memory before it exits, because that would invalidate the memory
 being returned to `g()`. This makes it _`g()`'s_ responsibility to
-free up the memory in question after _it's_ done with it. If `g()` in
-returns that memory back up to whoever called `g()` (say `h()`), 
+free up the memory in question after _it's_ done with it. If `g()`
+returns that memory back up to whoever called `g()` (say `h()`),
 then `g()` also can't free it and it becomes `h()`'s responsibility.
 This can push the responsibility all the way to "top level" code like
 the `main()` method or even testing code. So carefully trace the uses
 until you get to someplace where you know the memory will never be
 used again, and that's where you'd insert the necessary `free()` call.
 
-Exercise
-------------------------------------
+## What to do
 
 - [ ] Compile the program `check_whitespace.c`
 and run `valgrind` on it to find any leaks it may have (hint: it has at
-least one). 
-- [ ] In `leak_report.md` describe why the memory errors happen, and how to fix them. 
+least one).
+- [ ] In `leak_report.md` describe why the memory errors happen, and how to fix them.
 - [ ] Actually fix the code.
 - [ ] Commit, push, etc.
 - [ ] Submit the URL for your repository as instructed elsewhere
