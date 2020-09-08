@@ -1,16 +1,13 @@
-# C-programming-pre-lab
+# C-programming-pre-lab <!-- omit in toc -->
 
-Pre-lab to get started on compiling and running C programs and valgrind.
+Pre-lab to get started on compiling and running C programs and using `valgrind` to identify
+memory leaks.
 
-<!-- TOC depthFrom:2 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
-- [Background](#background)
-	- [Checking vs. Exploration](#checking-vs-exploration)
-	- [Compiling and running a C program](#compiling-and-running-a-c-program)
-	- [Using valgrind to find memory leaks](#using-valgrind-to-find-memory-leaks)
-- [What to do](#what-to-do)
-
-<!-- /TOC -->
+* [Background](#background)
+  * [Checking vs. Exploration](#checking-vs-exploration)
+  * [Compiling and running a C program](#compiling-and-running-a-c-program)
+  * [Using valgrind to find memory leaks](#using-valgrind-to-find-memory-leaks)
+* [What to do](#what-to-do)
 
 ## Background
 
@@ -30,25 +27,25 @@ resources. We'll share here things we found helpful at some
 point, and we
 would encourage everyone in the course to do the same.
 
--   <http://en.wikipedia.org/wiki/Header_file>
-    -   Nice review of why C has header files, and how they're typically
-        used.
--   <http://en.wikipedia.org/wiki/Boolean_datatype#C>
-    -   On the craziness that is booleans (or the lack thereof) in C.
--   <http://en.wikipedia.org/wiki/Struct_(C_programming_language>)
-    -   A nice overview of C structs
+* <http://en.wikipedia.org/wiki/Header_file>
+  * Nice review of why C has header files, and how they're typically used.
+* <http://en.wikipedia.org/wiki/Boolean_datatype#C>
+  * On the craziness that is booleans (or the lack thereof) in C.
+* <http://en.wikipedia.org/wiki/Struct_(C_programming_language>)
+  * A nice overview of C structs
 
 <http://www.cprogramming.com/tutorial.html#ctutorial> has a decent
 on-line C tutorial, complete with little self-tests along the way. Some
 particularly useful lessons in this context would be:
--   <http://www.cprogramming.com/tutorial/c/lesson6.html>
-    -   Overview of pointers in C
--   <http://www.cprogramming.com/tutorial/c/lesson8.html>
-    -   Overview of arrays in C
--   <http://www.cprogramming.com/tutorial/c/lesson9.html>
-    -   Overview of strings in C
--   <http://www.cprogramming.com/tutorial/c/lesson14.html>
-    -   Overview of command line arguments in C.
+
+* <http://www.cprogramming.com/tutorial/c/lesson6.html>
+  * Overview of pointers in C
+* <http://www.cprogramming.com/tutorial/c/lesson8.html>
+  * Overview of arrays in C
+* <http://www.cprogramming.com/tutorial/c/lesson9.html>
+  * Overview of strings in C
+* <http://www.cprogramming.com/tutorial/c/lesson14.html>
+  * Overview of command line arguments in C.
 
 ### Checking vs. Exploration
 
@@ -84,23 +81,23 @@ gcc -g -Wall -o check_whitespace check_whitespace.c
 `gcc` is the GNU C Compiler, which is pretty much the only C compiler
 people use on Linux boxes these days. The meaning of the flags:
 
--   `-g` tells `gcc` to include debugging information in the generated
-    executable. This is allows, for example, programs like `valgrind`
-    (described below) to list line numbers where it thinks there are
-    problems. Without `-g` Valgrind (and other debugging tools) will
-    be able to specify the name of functions where there are problems,
-    but not give you line numbers.
--   `-Wall` (it's a capital 'W') is short for "Warnings all" and turns
-    on *all* the warnings that `gcc` supports. This is a Very Good Idea
-    because there are a ton of crazy things that C will try to
-    "understand" for you, and `-Wall` tells the compiler to warn you
-    about those things instead of just quietly (mis)interpreting them.
-    You should typically use `-Wall` and make sure to figure out and
-    clean up any warnings you do get.
--   `-o <name>` tells `gcc` to put the resulting executable in a file
-    with the given name. If you don't provide the `-o` flag then `gcc`
-    will write the executable to a file called `a.out` for strange
-    historical reasons.
+* `-g` tells `gcc` to include debugging information in the generated
+  executable. This is allows, for example, programs like `valgrind`
+  (described below) to list line numbers where it thinks there are
+  problems. Without `-g` Valgrind (and other debugging tools) will
+  be able to specify the name of functions where there are problems,
+  but not give you line numbers.
+* `-Wall` (it's a capital 'W') is short for "Warnings all" and turns
+  on *all* the warnings that `gcc` supports. This is a Very Good Idea
+  because there are a ton of crazy things that C will try to
+  "understand" for you, and `-Wall` tells the compiler to warn you
+  about those things instead of just quietly (mis)interpreting them.
+  You should typically use `-Wall` and make sure to figure out and
+  clean up any warnings you do get.
+* `-o <name>` tells `gcc` to put the resulting executable in a file
+  with the given name. If you don't provide the `-o` flag then `gcc`
+  will write the executable to a file called `a.out` for strange
+  historical reasons.
 
 Assuming your program compiled correctly (**check the output!**) then you
 should be able to run the program like any other executable:
@@ -166,6 +163,7 @@ valgrind --leak-check=full ./my_prog
 
 This generates lots of output of the form:
 
+```english
     ==28587== 18 bytes in 1 blocks are definitely lost in loss record 50 of 50
     ==28587==    at 0x400522F: calloc (vg_replace_malloc.c:418)
     ==28587==    by 0x80486AE: str_reverse (palindrome.c:12)
@@ -175,6 +173,7 @@ This generates lots of output of the form:
     ==28587==    by 0x804A1B8: _run_test (cmockery.c:1519)
     ==28587==    by 0x804A5A7: _run_tests (cmockery.c:1624)
     ==28587==    by 0x80489B3: main (palindrome_test.c:68)
+```
 
 This tells you that 18 bytes were lost, and that were allocated by
 `calloc` (the top line of the trace), which was called on line 12 of
@@ -206,10 +205,10 @@ used again, and that's where you'd insert the necessary `free()` call.
 
 ## What to do
 
-- [ ] Compile the program `check_whitespace.c`
-and run `valgrind` on it to find any leaks it may have (hint: it has at
-least one).
-- [ ] In `leak_report.md` describe why the memory errors happen, and how to fix them.
-- [ ] Actually fix the code.
-- [ ] Commit, push, etc.
-- [ ] Submit the URL for your repository as instructed elsewhere
+* [ ] Compile the program `check_whitespace.c`
+    and run `valgrind` on it to find any leaks it may have (hint: it has at
+    least one).
+* [ ] In `leak_report.md` describe why the memory errors happen, and how to fix them.
+* [ ] Actually fix the code.
+* [ ] Commit, push, etc.
+* [ ] Submit the URL for your repository as instructed elsewhere
