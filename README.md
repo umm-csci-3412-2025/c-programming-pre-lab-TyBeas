@@ -73,7 +73,8 @@ your new knowledge back to the project at hand.
 has clearly had a long and complex history, as indicated by the long note at the top with
 links to subsequent pieces he wrote in response to (mis) interpretations of his ideas.
 All that said, I still think there's a lot of really good stuff here, and I think his
-distinction between testing and exploration is entirely valid.)
+distinction between testing and exploration is entirely valid, despite it's rather terrible
+design aesthetic 😜.)
 
 ### Compiling and running a C program
 
