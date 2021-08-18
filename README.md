@@ -3,11 +3,10 @@
 Pre-lab to get started on compiling and running C programs and using `valgrind` to identify
 memory leaks.
 
-* [Background](#background)
-  * [Checking vs. Exploration](#checking-vs-exploration)
-  * [Compiling and running a C program](#compiling-and-running-a-c-program)
-  * [Using valgrind to find memory leaks](#using-valgrind-to-find-memory-leaks)
-* [What to do](#what-to-do)
+- [Background](#background)
+  - [Compiling and running a C program](#compiling-and-running-a-c-program)
+  - [Using valgrind to find memory leaks](#using-valgrind-to-find-memory-leaks)
+- [What to do](#what-to-do)
 
 ## Background
 
@@ -46,35 +45,6 @@ particularly useful lessons in this context would be:
   * Overview of strings in C
 * <http://www.cprogramming.com/tutorial/c/lesson14.html>
   * Overview of command line arguments in C.
-
-### Checking vs. Exploration
-
-[As this article points out nicely](https://www.developsense.com/blog/2009/08/testing-vs-checking/),
-it's useful to make distinction between checking (which is what we
-typically call testing in our courses) and exploration (he calls it
-testing, but I prefer exploration given that "testing" means other
-things). Checking is what we do to see if our code (still) works.
-Exploration is what we do to learn more about a domain or a tool or a
-language. Exploration is often crucial when we're new to a space, and
-it's important to recognize that the stuff we're writing when we explore
-is often pretty crappy (because we don't know what we're doing yet). As
-a result one often does the exploring off to the side, with the
-intention of throwing it away. I bring all this up because I suspect
-there will be a fair amount of exploring that goes on during this
-pre-lab and the following labs.
-
-Try to be intentional and honest about that. Step off to the side and
-try a little exploratory code to figure out if you've got an idea worked
-out correctly. Then throw away that "quick and dirty" code, and bring
-your new knowledge back to the project at hand.
-
-(It's worth noting that
-[the article linked above](https://www.developsense.com/blog/2009/08/testing-vs-checking/)
-has clearly had a long and complex history, as indicated by the long note at the top with
-links to subsequent pieces he wrote in response to (mis) interpretations of his ideas.
-All that said, I still think there's a lot of really good stuff here, and I think his
-distinction between testing and exploration is entirely valid, despite it's rather terrible
-design aesthetic 😜.)
 
 ### Compiling and running a C program
 
