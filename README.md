@@ -26,25 +26,25 @@ resources. We'll share here things we found helpful at some
 point, and we
 would encourage everyone in the course to do the same.
 
-* <http://en.wikipedia.org/wiki/Header_file>
-  * Nice review of why C has header files, and how they're typically used.
-* <http://en.wikipedia.org/wiki/Boolean_datatype#C>
-  * On the craziness that is booleans (or the lack thereof) in C.
-* <http://en.wikipedia.org/wiki/Struct_(C_programming_language)>
-  * A nice overview of C structs
+- <http://en.wikipedia.org/wiki/Header_file>
+  - Nice review of why C has header files, and how they're typically used.
+- <http://en.wikipedia.org/wiki/Boolean_datatype#C>
+  - On the craziness that is booleans (or the lack thereof) in C.
+- <http://en.wikipedia.org/wiki/Struct_(C_programming_language)>
+  - A nice overview of C structs
 
 <http://www.cprogramming.com/tutorial.html#ctutorial> has a decent
 on-line C tutorial, complete with little self-tests along the way. Some
 particularly useful lessons in this context would be:
 
-* <http://www.cprogramming.com/tutorial/c/lesson6.html>
-  * Overview of pointers in C
-* <http://www.cprogramming.com/tutorial/c/lesson8.html>
-  * Overview of arrays in C
-* <http://www.cprogramming.com/tutorial/c/lesson9.html>
-  * Overview of strings in C
-* <http://www.cprogramming.com/tutorial/c/lesson14.html>
-  * Overview of command line arguments in C.
+- <http://www.cprogramming.com/tutorial/c/lesson6.html>
+  - Overview of pointers in C
+- <http://www.cprogramming.com/tutorial/c/lesson8.html>
+  - Overview of arrays in C
+- <http://www.cprogramming.com/tutorial/c/lesson9.html>
+  - Overview of strings in C
+- <http://www.cprogramming.com/tutorial/c/lesson14.html>
+  - Overview of command line arguments in C.
 
 ### Compiling and running a C program
 
@@ -60,20 +60,20 @@ gcc -g -Wall -o check_whitespace check_whitespace.c
 `gcc` is the GNU C Compiler, which is pretty much the only C compiler
 people use on Linux boxes these days. The meaning of the flags:
 
-* `-g` tells `gcc` to include debugging information in the generated
+- `-g` tells `gcc` to include debugging information in the generated
   executable. This is allows, for example, programs like `valgrind`
   (described below) to list line numbers where it thinks there are
   problems. Without `-g` Valgrind (and other debugging tools) will
   be able to specify the name of functions where there are problems,
   but not give you line numbers.
-* `-Wall` (it's a capital 'W') is short for "Warnings all" and turns
+- `-Wall` (it's a capital 'W') is short for "Warnings all" and turns
   on *all* the warnings that `gcc` supports. This is a Very Good Idea
   because there are a ton of crazy things that C will try to
   "understand" for you, and `-Wall` tells the compiler to warn you
   about those things instead of just quietly (mis)interpreting them.
   You should typically use `-Wall` and make sure to figure out and
   clean up any warnings you do get.
-* `-o <name>` tells `gcc` to put the resulting executable in a file
+- `-o <name>` tells `gcc` to put the resulting executable in a file
   with the given name. If you don't provide the `-o` flag then `gcc`
   will write the executable to a file called `a.out` for strange
   historical reasons.
@@ -133,8 +133,8 @@ will run the program as normal, and then print out a memory usage/leak
 report at the end. To get more detailed information, including what
 lines generate a leak,
 
-* Make sure to compile your program with the `-g` flag, and
-* Add the `--leak-check=full` flag when running `valgrind`:
+- Make sure to compile your program with the `-g` flag, and
+- Add the `--leak-check=full` flag when running `valgrind`:
 
 ```bash
 valgrind --leak-check=full ./my_prog
@@ -184,10 +184,10 @@ used again, and that's where you'd insert the necessary `free()` call.
 
 ## What to do
 
-* [ ] Compile the program `check_whitespace.c`
+- [ ] Compile the program `check_whitespace.c`
     and run `valgrind` on it to find any leaks it may have (hint: it has at
     least one).
-* [ ] In `leak_report.md` describe why the memory errors happen, and how to fix them.
-* [ ] Actually fix the code.
-* [ ] Commit, push, etc.
-* [ ] Submit the URL for your repository as instructed elsewhere
+- [ ] In `leak_report.md` describe why the memory errors happen, and how to fix them.
+- [ ] Actually fix the code.
+- [ ] Commit, push, etc.
+- [ ] Submit the URL for your repository as instructed elsewhere
