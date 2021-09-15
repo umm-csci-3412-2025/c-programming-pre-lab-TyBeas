@@ -10,41 +10,37 @@ memory leaks.
 
 ## Background
 
-This pre-lab is for the next several labs which comprise a
-number of
+This pre-lab helps prepare us for the next several labs.
+These are a number of
 C programming exercises with an emphasis on arrays, pointers,
 memory management, and system calls.
-The Internet is chock full of C tutorials, etc.;
-some are listed below, but there are no doubt zillions of good
-resources out there we've never heard of so feel free to share
-things you find helpful.
 
 There is a truly vast amount of information on C out there on the
 Internet; Wikipedia alone has a remarkable amount of info on C. There's
 no way we could have gone through it all or know the "best"
-resources. We'll share here things we found helpful at some
-point, and we
-would encourage everyone in the course to do the same.
+resources. Here we've shared things we found helpful at some
+point, but
+there are no doubt zillions of good
+resources out there we've never heard of so feel free to share
+things you find helpful.
 
-- <http://en.wikipedia.org/wiki/Header_file>
-  - Nice review of why C has header files, and how they're typically used.
-- <http://en.wikipedia.org/wiki/Boolean_datatype#C>
-  - On the craziness that is booleans (or the lack thereof) in C.
-- <http://en.wikipedia.org/wiki/Struct_(C_programming_language)>
-  - A nice overview of C structs
-
-<http://www.cprogramming.com/tutorial.html#ctutorial> has a decent
-on-line C tutorial, complete with little self-tests along the way. Some
+[CProgramming.com has a decent
+on-line C tutorial](<http://www.cprogramming.com/tutorial.html#ctutorial>), complete with little self-tests along the way. _I would **strongly**
+recommend trying out the self-tests as a basic way of checking your
+understanding._ Some
 particularly useful lessons in this context would be:
 
-- <http://www.cprogramming.com/tutorial/c/lesson6.html>
-  - Overview of pointers in C
-- <http://www.cprogramming.com/tutorial/c/lesson8.html>
-  - Overview of arrays in C
-- <http://www.cprogramming.com/tutorial/c/lesson9.html>
-  - Overview of strings in C
-- <http://www.cprogramming.com/tutorial/c/lesson14.html>
-  - Overview of command line arguments in C.
+- [Overview of pointers in C](http://www.cprogramming.com/tutorial/c/lesson6.html)
+- [Overview of structs in C](https://www.cprogramming.com/tutorial/c/lesson7.html)
+- [Overview of arrays in C](http://www.cprogramming.com/tutorial/c/lesson8.html)
+- [Overview of strings in C](http://www.cprogramming.com/tutorial/c/lesson9.html)
+- [Overview of command line arguments in C](http://www.cprogramming.com/tutorial/c/lesson14.html)
+
+Some other potentially useful bits of information from Wikipedia:
+
+- [A nice review of why C has header files, and how they're typically used.](http://en.wikipedia.org/wiki/Header_file)
+- [On the craziness that is booleans (or the lack thereof) in C.](https://en.wikipedia.org/wiki/Boolean_data_type#C,_C++,_Objective-C,_AWK)
+- [A nice overview of C structs](http://en.wikipedia.org/wiki/Struct_(C_programming_language))
 
 ### Compiling and running a C program
 
@@ -106,7 +102,7 @@ void f(char *str) {
 ```
 
 The problem here is the fact that `f` allocates 100 bytes (100
-characters) for `c` to point to which are never freed. This means that
+characters) for `c` to point, but these are never freed. This means that
 every time we call `f`, 100 bytes will be allocated to this process that
 we'll *never* be able to get back because we have no way of accessing
 that pointer outside of `f`. To fix that problem (assuming we really
@@ -137,10 +133,10 @@ lines generate a leak,
 - Add the `--leak-check=full` flag when running `valgrind`:
 
 ```bash
-valgrind --leak-check=full ./my_prog
+      valgrind --leak-check=full ./my_prog
 ```
 
-This generates lots of output of the form:
+If there are memory issues, this generates lots of output of the form:
 
 ```english
     ==28587== 18 bytes in 1 blocks are definitely lost in loss record 50 of 50
@@ -154,10 +150,15 @@ This generates lots of output of the form:
     ==28587==    by 0x80489B3: main (palindrome_test.c:68)
 ```
 
-This tells you that 18 bytes were lost, and that were allocated by
-`calloc` (the top line of the trace), which was called on line 12 of
+This tells you that:
+
+- 18 bytes were lost, and that
+- they were allocated by `calloc` (the top line of the trace),
+- which was called on line 12 of
 `palindrome.c` in the function `str_reverse` (next to top line of the
-trace), etc. Note that this tells you where the lost bytes were
+trace), etc.
+
+Note that this tells you where the lost bytes were
 *allocated*, which doesn't always tell you much about where they should
 be *freed*, as that's going to depend on how they're used after they're
 allocated.
