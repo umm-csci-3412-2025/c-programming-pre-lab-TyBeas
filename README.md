@@ -183,6 +183,17 @@ the `main()` method or even testing code. So carefully trace the uses
 until you get to someplace where you know the memory will never be
 used again, and that's where you'd insert the necessary `free()` call.
 
+:bangbang: One non-obvious, but important, place to look for memory leaks is
+in the test code. If the test code calls some function `f()` that returns an
+array or string that is allocated somewhere in `f` (or a function `f` calls),
+then that memory is lost if the test code doesn't free up that returned array.
+So if `valgrind` says there's a leak where some memory is allocated in a
+function and then returned to the test code, then the fix is
+_in the test code_. In general we don't encourage you to fiddle with the
+test code (you could always just change the test code to say everything
+passes!), but if the memory leaks to the test code, then that's where the
+fix has to be made.
+
 ## What to do
 
 - [ ] Compile the program `check_whitespace.c`
