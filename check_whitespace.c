@@ -6,7 +6,7 @@
  * Strips spaces from both the front and back of a string,
  * leaving any internal spaces alone.
  */
-char* strip(char* str) {
+char const *strip(char const *str) {
   int size = strlen(str);
 
   // This counts the number of leading and trailing spaces
@@ -33,7 +33,7 @@ char* strip(char* str) {
 
   // Allocate a slot for all the "saved" characters
   // plus one extra for the null terminator.
-  char* result = calloc(size-num_spaces+1, sizeof(char));
+  char* result = (char*) calloc(size-num_spaces+1, sizeof(char));
 
   // Copy in the "saved" characters.
   int i;
@@ -50,10 +50,10 @@ char* strip(char* str) {
  * Return true (1) if the given string is "clean", i.e., has
  * no spaces at the front or the back of the string.
  */
-int is_clean(char* str) {
+int is_clean(char const *str) {
   // We check if it's clean by calling strip and seeing if the
   // result is the same as the original string.
-  char* cleaned = strip(str);
+  char const *cleaned = strip(str);
 
   // strcmp compares two strings, returning a negative value if
   // the first is less than the second (in alphabetical order),
@@ -62,28 +62,4 @@ int is_clean(char* str) {
   int result = strcmp(str, cleaned);
 
   return result == 0;
-}
-
-int main() {
-  int NUM_STRINGS = 7;
-  // Makes an array of 7 string constants for testing.
-  char* strings[] = {
-    "Morris",
-    "  stuff",
-    "Minnesota",
-    "nonsense  ",
-    "USA",
-    "   ",
-    "     silliness    "
-  };
-
-  for (int i = 0; i < NUM_STRINGS; ++i) {
-    if (is_clean(strings[i])) {
-      printf("The string '%s' is clean.\n", strings[i]);
-    } else {
-      printf("The string '%s' is NOT clean.\n", strings[i]);
-    }
-  }
-
-  return 0;
 }

@@ -4,6 +4,7 @@
         "calloc",
         "cmockery",
         "malloc",
+        "STREQ",
         "structs",
         "valgrind"
     ]

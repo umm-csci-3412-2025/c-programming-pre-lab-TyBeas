@@ -1,5 +1,6 @@
 # Don't commit the executable
 check_whitespace
+check_whitespace_test
 
 # Created by https://www.toptal.com/developers/gitignore/api/c,code,emacs,vim
 # Edit at https://www.toptal.com/developers/gitignore?templates=c,code,emacs,vim
