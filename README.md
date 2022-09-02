@@ -1,10 +1,11 @@
 # C-programming-pre-lab <!-- omit in toc -->
 
-Pre-lab to get started on compiling and running C programs and using `valgrind` to identify
-memory leaks.
+This is a pre-lab to get you started started on compiling and running C programs
+and using `valgrind` to identify memory leaks.
 
 - [Background](#background)
   - [Compiling and running a C program](#compiling-and-running-a-c-program)
+  - [Compiling and running the tests](#compiling-and-running-the-tests)
   - [Using valgrind to find memory leaks](#using-valgrind-to-find-memory-leaks)
 - [What to do](#what-to-do)
 
@@ -50,11 +51,11 @@ Assuming you're in the project directory, you can compile
 this using the command
 
 ```bash
-gcc -g -Wall -o check_whitespace check_whitespace.c
+gcc -g -Wall -o check_whitespace main.c check_whitespace.c
 ```
 
-`gcc` is the GNU C Compiler, which is pretty much the only C compiler
-people use on Linux boxes these days. The meaning of the flags:
+`gcc` is the GNU C Compiler, which, along with Clang/LLVM, dominates the
+C/C++ compiler space on Linux boxes these days. The meaning of the flags:
 
 - `-g` tells `gcc` to include debugging information in the generated
   executable. This is allows, for example, programs like `valgrind`
@@ -74,12 +75,109 @@ people use on Linux boxes these days. The meaning of the flags:
   will write the executable to a file called `a.out` for strange
   historical reasons.
 
+After the flags, we provide a list of all the `.c` files that need to be
+compiled and [linked together](https://en.wikipedia.org/wiki/Linker_(computing))
+to form a working executable.
+
 Assuming your program compiled correctly (**check the output!**) then you
 should be able to run the program like any other executable:
 
 ```{bash}
 ./check_whitespace
 ```
+
+### Compiling and running the tests
+
+This includes an example of using
+[the GoogleTest library](https://google.github.io/googletest/)
+for writing unit tests for C and C++ programs. The tests are in
+`check_whitespace_test.cpp`, which has a `.cpp` extension because
+tests in GoogleTest are actually C++ (`.cpp`) instead of just C.
+
+Below are examples of a few tests in GoogleTests:
+
+```c++
+TEST(Strip, WhitespaceOnBothEnds) {
+    ASSERT_STREQ("frog", strip("  frog     "));
+}
+
+TEST(IsClean, NoWhitespace) {
+    ASSERT_TRUE(is_clean("University of Minnesota Morris"));
+}
+```
+
+The two arguments to `TEST` are arbitrary names. The first is the name of
+the _suite_ this test is part of; we just used the name of the function
+being tested by this test (`Strip` or `IsClean`). The second is the name
+of this particular test, and should hopefully provide some useful information
+on what's being tested here.
+
+GoogleTest has quite a few assertions. Here we're using `ASSERT_STREQ`, which
+asserts that two strings (`STR`) are equal (`EQ`), and `ASSERT_TRUE`.
+
+To compile this is considerably more complicated because we have to use C++
+and we need to include the GoogleTest library:
+
+```text
+g++ -Wall -g -o check_whitespace_test check_whitespace.c check_whitespace_test.cpp -lgtest
+```
+
+Here we're using `g++` instead of `gcc` to indicate that we want the C++ compiler.
+We've also added the `-lgtest` at the end, telling the compiler to include the
+`gtest` _library_ (hence the `-l`) when constructing the final executable. Also
+note that we're _not_ including `main.c` when we compile the test code;
+`check_whitespace_test.cpp` contains a `main()` function so we _can't_ include
+`main.c` (which provides a `main()` function), or the system won't know which
+one to call.
+
+Assuming your program compiled correctly (again, **check the output!**) then you
+should be able to run the test code:
+
+```{bash}
+./check_whitespace_test
+```
+
+If all the tests pass (and they should initially) you should get something like:
+
+```text
+$ ./check_whitespace_test 
+[==========] Running 10 tests from 2 test cases.
+[----------] Global test environment set-up.
+[----------] 5 tests from strip
+[ RUN      ] strip.EmptyString
+[       OK ] strip.EmptyString (0 ms)
+[ RUN      ] strip.NoWhitespace
+[       OK ] strip.NoWhitespace (0 ms)
+[ RUN      ] strip.WhitespaceOnFront
+[       OK ] strip.WhitespaceOnFront (0 ms)
+[ RUN      ] strip.WhitespaceOnBack
+[       OK ] strip.WhitespaceOnBack (0 ms)
+[ RUN      ] strip.WhitespaceOnBothEnds
+[       OK ] strip.WhitespaceOnBothEnds (0 ms)
+[----------] 5 tests from strip (0 ms total)
+
+[----------] 5 tests from is_clean
+[ RUN      ] is_clean.EmptyString
+[       OK ] is_clean.EmptyString (0 ms)
+[ RUN      ] is_clean.NoWhitespace
+[       OK ] is_clean.NoWhitespace (0 ms)
+[ RUN      ] is_clean.WhitespaceOnFront
+[       OK ] is_clean.WhitespaceOnFront (0 ms)
+[ RUN      ] is_clean.WhitespaceOnBack
+[       OK ] is_clean.WhitespaceOnBack (0 ms)
+[ RUN      ] is_clean.WhitespaceOnBothEnds
+[       OK ] is_clean.WhitespaceOnBothEnds (0 ms)
+[----------] 5 tests from is_clean (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 10 tests from 2 test cases ran. (0 ms total)
+[  PASSED  ] 10 tests.
+```
+
+You should make sure you recompile and rerun the tests after you
+make changes while fixing the memory leak problems down below. It's
+not enough to just fix the memory leaks if you also break the code in
+the process, and the tests should help ensure that you're good there.
 
 ### Using valgrind to find memory leaks
 
@@ -163,7 +261,7 @@ Note that this tells you where the lost bytes were
 be *freed*, as that's going to depend on how they're used after they're
 allocated.
 
-There are two types of memory leaks, one of which is frankly easier to
+There are two common types of memory leaks, one of which is frankly easier to
 sort out than the other.
 
 The easy ones are where function `f()` allocates _local_ memory (memory
@@ -196,9 +294,11 @@ fix has to be made.
 
 ## What to do
 
-- [ ] Compile the program `check_whitespace.c`
+- [ ] Compile the program `check_whitespace`
     and run `valgrind` on it to find any leaks it may have (hint: it has at
     least one).
+- [ ] Also compile `check_whitespace_test` and run `valgrind` on the test code, to
+      find any leaks there (there are several).
 - [ ] In `leak_report.md` describe why the memory errors happen, and how to fix them.
 - [ ] Actually fix the code.
 - [ ] Commit, push, etc.
