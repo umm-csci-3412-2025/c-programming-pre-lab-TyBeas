@@ -261,6 +261,9 @@ Note that this tells you where the lost bytes were
 be *freed*, as that's going to depend on how they're used after they're
 allocated.
 
+:warning: not all of these output blocks will be useful. Look for ones that
+refer to some of _your_ code somewhere, like `strip` or `is_clean`.
+
 There are two common types of memory leaks, one of which is frankly easier to
 sort out than the other.
 
@@ -291,6 +294,24 @@ _in the test code_. In general we don't encourage you to fiddle with the
 test code (you could always just change the test code to say everything
 passes!), but if the memory leaks to the test code, then that's where the
 fix has to be made.
+
+:raising_hand: **Tip:** If you need to free a value and you don't have a
+name for it, _give it one_. E.g., add an assignment statement like
+`s = value_to_free()` that gives that value (`value_to_free()`) a name
+(`s`) so you can free it with something like `free(s)`. Also, don't forget
+how to write clean code just because you're using C. If you find yourself
+with multiple functions with the same structure, is there a way you can
+write a helper function that captures that structure so you don't have to
+repeat it over and over?
+
+Once you have everything happy, you will hopefully get a line like:
+
+```text
+==357046== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+```
+
+at the end indicating that you now have 0 errors and all is well.
 
 ## What to do
 
