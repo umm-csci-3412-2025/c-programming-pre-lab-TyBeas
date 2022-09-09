@@ -1,6 +1,6 @@
 # C-programming-pre-lab <!-- omit in toc -->
 
-[![Tests](../../workflows/disemvowel-gtest/badge.svg)](../../actions?query=workflow%3A"gtest")
+[![Tests](../../workflows/gtest/badge.svg)](../../actions?query=workflow%3A"gtest")
 [![Main Valgrind](../../workflows/main-valgrind/badge.svg)](../../actions?query=workflow%3A"main-valgrind")
 [![Test Valgrind](../../workflows/test-valgrind/badge.svg)](../../actions?query=workflow%3A"test-valgrind")
 
