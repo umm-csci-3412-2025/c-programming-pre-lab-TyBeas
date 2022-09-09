@@ -7,6 +7,7 @@ and using `valgrind` to identify memory leaks.
   - [Compiling and running a C program](#compiling-and-running-a-c-program)
   - [Compiling and running the tests](#compiling-and-running-the-tests)
   - [Using valgrind to find memory leaks](#using-valgrind-to-find-memory-leaks)
+- [GitHub Actions and badges](#github-actions-and-badges)
 - [What to do](#what-to-do)
 
 ## Background
@@ -312,6 +313,31 @@ Once you have everything happy, you will hopefully get a line like:
 ```
 
 at the end indicating that you now have 0 errors and all is well.
+
+## GitHub Actions and badges
+
+We've set up GitHub Actions to automatically run three checks on your
+code every time you push changes to GitHub:
+
+- The code compiles and the tests pass.
+- Valgrind returns no errors when running the `main` function.
+- Valgrind returns no errors when running the test code.
+
+You should be able to see the status of these in a commit or pull request
+in GitHub. Here, for example, is a status from a pull request:
+
+![Screen grab of GitHub Action status showing success, failure, and pending](images/GitHub_action_status.png)
+
+We have all three possible status indicators here:
+
+- The red x indicates a failing check
+- The orange dot indicates a check that's still in progress
+- The green checkmark indicates a check that passed
+
+When you initially check out the code for the pre-lab, the `gtest`
+check should pass (the tests pass), but the other two should fail
+because there are memory issues with both the `check_whitespace`
+`main()` and the tests.
 
 ## What to do
 
