@@ -1,5 +1,10 @@
 # C-programming-pre-lab <!-- omit in toc -->
 
+[![Tests](../../workflows/disemvowel-gtest/badge.svg)](../../actions?query=workflow%3A"gtest")
+[![Main Valgrind](../../workflows/main-valgrind/badge.svg)](../../actions?query=workflow%3A"main-valgrind")
+[![Test Valgrind](../../workflows/test-valgrind/badge.svg)](../../actions?query=workflow%3A"test-valgrind")
+
+
 This is a pre-lab to get you started started on compiling and running C programs
 and using `valgrind` to identify memory leaks.
 
@@ -338,6 +343,17 @@ When you initially check out the code for the pre-lab, the `gtest`
 check should pass (the tests pass), but the other two should fail
 because there are memory issues with both the `check_whitespace`
 `main()` and the tests.
+
+We have also added three badges to the top of this README that indicate
+the status of each of these three status checks. The tests badge should
+be green from the beginning (and stay green throughout the process).
+The two `valgrind` badges will both start off red (because the `valgrind`
+checks fail initially) but turn green after you've fixed the memory
+management issue.
+
+> :warning: The badges won't update instantly, so don't fret if
+> your status checks are green but the badge is still red. That
+> should update in a few minutes.
 
 ## What to do
 
