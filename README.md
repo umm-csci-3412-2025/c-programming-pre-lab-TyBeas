@@ -94,6 +94,12 @@ for writing unit tests for C and C++ programs. The tests are in
 `check_whitespace_test.cpp`, which has a `.cpp` extension because
 tests in GoogleTest are actually C++ (`.cpp`) instead of just C.
 
+If you are using lab machines the `gtest` libraries have already been installed, 
+but if you want to run the tests on your local machine, then you'll need to install them.
+
+Curtis Larson of Utah Tech has provided [good instructions](https://cit.dixie.edu/faculty/larsen/google-test-installation.php)
+on installing the `gtest` suite on various OS's.
+
 Below are examples of a few tests in GoogleTests:
 
 ```c++
