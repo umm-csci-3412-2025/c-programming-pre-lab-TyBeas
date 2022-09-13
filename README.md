@@ -1,7 +1,9 @@
 # C-programming-pre-lab <!-- omit in toc -->
 
 This is a pre-lab to get you started started on compiling and running C programs
-and using `valgrind` to identify memory leaks.
+and using `valgrind` to identify memory leaks.  The tools have been installed on the lab computers.  
+Be aware that if you want to use your own machine you will have to go through quite a few extra steps to
+install the `gtest` test suite and the `valgrind` memory leak detection program (both described below)
 
 - [Background](#background)
   - [Compiling and running a C program](#compiling-and-running-a-c-program)
@@ -230,7 +232,10 @@ valgrind ./my_prog
 ```
 
 will run the program as normal, and then print out a memory usage/leak
-report at the end. To get more detailed information, including what
+report at the end. If your system doesn't have `valgrind` you can install it (on Linux or Windows WSL)
+using `sudo apt-get install valgrind`.  On Mac follow [these directions](https://macappstore.org/valgrind/).
+
+When using `valgrind`, to get more detailed information, including what
 lines generate a leak,
 
 - Make sure to compile your program with the `-g` flag, and
