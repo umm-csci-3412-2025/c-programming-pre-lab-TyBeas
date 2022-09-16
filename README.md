@@ -1,5 +1,10 @@
 # C-programming-pre-lab <!-- omit in toc -->
 
+[![Tests](../../workflows/gtest/badge.svg)](../../actions?query=workflow%3A"gtest")
+[![Main Valgrind](../../workflows/main-valgrind/badge.svg)](../../actions?query=workflow%3A"main-valgrind")
+[![Test Valgrind](../../workflows/test-valgrind/badge.svg)](../../actions?query=workflow%3A"test-valgrind")
+
+
 This is a pre-lab to get you started started on compiling and running C programs
 and using `valgrind` to identify memory leaks.  The tools have been installed on the lab computers.  
 Be aware that if you want to use your own machine you will have to go through quite a few extra steps to
@@ -9,6 +14,7 @@ install the `gtest` test suite and the `valgrind` memory leak detection program 
   - [Compiling and running a C program](#compiling-and-running-a-c-program)
   - [Compiling and running the tests](#compiling-and-running-the-tests)
   - [Using valgrind to find memory leaks](#using-valgrind-to-find-memory-leaks)
+- [GitHub Actions and badges](#github-actions-and-badges)
 - [What to do](#what-to-do)
 
 ## Background
@@ -323,6 +329,42 @@ Once you have everything happy, you will hopefully get a line like:
 ```
 
 at the end indicating that you now have 0 errors and all is well.
+
+## GitHub Actions and badges
+
+We've set up GitHub Actions to automatically run three checks on your
+code every time you push changes to GitHub:
+
+- The code compiles and the tests pass.
+- Valgrind returns no errors when running the `main` function.
+- Valgrind returns no errors when running the test code.
+
+You should be able to see the status of these in a commit or pull request
+in GitHub. Here, for example, is a status from a pull request:
+
+![Screen grab of GitHub Action status showing success, failure, and pending](images/GitHub_action_status.png)
+
+We have all three possible status indicators here:
+
+- The red x indicates a failing check
+- The orange dot indicates a check that's still in progress
+- The green checkmark indicates a check that passed
+
+When you initially check out the code for the pre-lab, the `gtest`
+check should pass (the tests pass), but the other two should fail
+because there are memory issues with both the `check_whitespace`
+`main()` and the tests.
+
+We have also added three badges to the top of this README that indicate
+the status of each of these three status checks. The tests badge should
+be green from the beginning (and stay green throughout the process).
+The two `valgrind` badges will both start off red (because the `valgrind`
+checks fail initially) but turn green after you've fixed the memory
+management issue.
+
+> :warning: The badges won't update instantly, so don't fret if
+> your status checks are green but the badge is still red. That
+> should update in a few minutes.
 
 ## What to do
 
