@@ -1,33 +1,29 @@
 #include <gtest/gtest.h>
+
 #include "check_whitespace.h"
 
 TEST(strip, EmptyString) {
-    char* result = strip("");
-    ASSERT_STREQ("", result);
+    ASSERT_STREQ("", strip(""));
 }
 
 TEST(strip, NoWhitespace) {
-    char* result = strip("frog");
-    ASSERT_STREQ("frog", result);
-    free((char*) result);
+    ASSERT_STREQ("frog", strip("frog"));
+        free((char*) strip("frog"));
 }
 
 TEST(strip, WhitespaceOnFront) {
-    char* result = strip("   frog");
-    ASSERT_STREQ("frog", result);
-    free((char*) result);
+    ASSERT_STREQ("frog", strip("   frog"));
+        free((char*) strip("   frog");
 }
 
 TEST(strip, WhitespaceOnBack) {
-    char* result = strip("frog  ");
-    ASSERT_STREQ("frog", result);
-    free((char*) result);
+    ASSERT_STREQ("frog", strip("frog  "));
+        free((char*) testStr);
 }
 
 TEST(strip, WhitespaceOnBothEnds) {
-    char* result = strip("  frog     ");
-    ASSERT_STREQ("frog", result);
-    free((char*) result);
+    ASSERT_STREQ("frog", strip("  frog     "));
+        free((char*) testStr);
 }
 
 TEST(is_clean, EmptyString) {
