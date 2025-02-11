@@ -1,6 +1,4 @@
 # Leak report
 
-_Use this document to describe whatever memory leaks
-you find in `clean_whitespace.c` and how you might fix
-them. You should also probably remove this explanatory
-text._
+the leak problem that I found in checkwhitespace.c was uncleaned passed pointer.
+What I will do is free the memory at the end of the code. 
