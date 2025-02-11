@@ -4,6 +4,7 @@
 
 TEST(strip, EmptyString) {
     ASSERT_STREQ("", strip(""));
+        free((char*) strip(""));
 }
 
 TEST(strip, NoWhitespace) {
@@ -13,17 +14,17 @@ TEST(strip, NoWhitespace) {
 
 TEST(strip, WhitespaceOnFront) {
     ASSERT_STREQ("frog", strip("   frog"));
-        free((char*) strip("   frog");
+        free((char*) strip("   frog"));
 }
 
 TEST(strip, WhitespaceOnBack) {
     ASSERT_STREQ("frog", strip("frog  "));
-        free((char*) testStr);
+        free((char*) strip("frog  "));
 }
 
 TEST(strip, WhitespaceOnBothEnds) {
     ASSERT_STREQ("frog", strip("  frog     "));
-        free((char*) testStr);
+        free((char*) strip("  frog     "));
 }
 
 TEST(is_clean, EmptyString) {
