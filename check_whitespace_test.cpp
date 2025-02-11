@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+
 #include "check_whitespace.h"
 
 TEST(strip, EmptyString) {
@@ -11,14 +12,17 @@ TEST(strip, NoWhitespace) {
 
 TEST(strip, WhitespaceOnFront) {
     ASSERT_STREQ("frog", strip("   frog"));
+        free((char*) testStr);
 }
 
 TEST(strip, WhitespaceOnBack) {
     ASSERT_STREQ("frog", strip("frog  "));
+        free((char*) testStr);
 }
 
 TEST(strip, WhitespaceOnBothEnds) {
     ASSERT_STREQ("frog", strip("  frog     "));
+        free((char*) testStr);
 }
 
 TEST(is_clean, EmptyString) {
