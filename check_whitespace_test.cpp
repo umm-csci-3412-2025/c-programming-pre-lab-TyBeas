@@ -8,21 +8,22 @@ TEST(strip, EmptyString) {
 
 TEST(strip, NoWhitespace) {
     ASSERT_STREQ("frog", strip("frog"));
+        free((char*) strip("frog"));
 }
 
 TEST(strip, WhitespaceOnFront) {
     ASSERT_STREQ("frog", strip("   frog"));
-        free((char*) testStr);
+        free((char*) strip("   frog"));
 }
 
 TEST(strip, WhitespaceOnBack) {
     ASSERT_STREQ("frog", strip("frog  "));
-        free((char*) testStr);
+        free((char*) strip("frog  "));
 }
 
 TEST(strip, WhitespaceOnBothEnds) {
     ASSERT_STREQ("frog", strip("  frog     "));
-        free((char*) testStr);
+        free((char*) strip("  frog     "));
 }
 
 TEST(is_clean, EmptyString) {
