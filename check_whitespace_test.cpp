@@ -4,27 +4,26 @@
 
 TEST(strip, EmptyString) {
     ASSERT_STREQ("", strip(""));
-        free((char*) strip(""));
+            free((char*) strip("frog"));
 }
 
 TEST(strip, NoWhitespace) {
     ASSERT_STREQ("frog", strip("frog"));
-        free((char*) strip("frog"));
+            free((char*) strip("frog"));
 }
 
 TEST(strip, WhitespaceOnFront) {
     ASSERT_STREQ("frog", strip("   frog"));
-        free((char*) strip("   frog"));
-}
+                free((char*) strip("   frog"));
 
 TEST(strip, WhitespaceOnBack) {
     ASSERT_STREQ("frog", strip("frog  "));
-        free((char*) strip("frog  "));
+                free((char*) strip("frog  "));
 }
 
 TEST(strip, WhitespaceOnBothEnds) {
     ASSERT_STREQ("frog", strip("  frog     "));
-        free((char*) strip("  frog     "));
+            free((char*) strip("  frog     "));
 }
 
 TEST(is_clean, EmptyString) {
