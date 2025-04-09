@@ -6,7 +6,7 @@
  * Strips spaces from both the front and back of a string,
  * leaving any internal spaces alone.
  */
-char const *strip(char const *str) {
+char const *strip(char const *str){
   int size = strlen(str);
 
   // This counts the number of leading and trailing spaces
